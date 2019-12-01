@@ -2,12 +2,27 @@ fn main() {
   println!("Advent of Code - Day 1");
 
   let input = data();
-  let fuel_sum: i32 = input.into_iter().map(|f| fuel_required(*f)).sum();
+  let fuel_sum: i32 = input.into_iter().map(|f| fuel_for_mass(*f)).sum();
 
-  println!("Sum of fuel requirements: {}", fuel_sum);
+  println!("Part 1: Fuel for modules: {}", fuel_sum);
+
+  let fuel_with_fuel_sum: i32 = input.into_iter().map(|f| fuel_for_mass_plus_fuel(*f)).sum();
+
+  println!("Part 2: Fuel for modules plus fuel for that fuel: {}", fuel_with_fuel_sum);
 }
 
-fn fuel_required(mass: i32) -> i32 {
+fn fuel_for_mass_plus_fuel(mass: i32) -> i32 {
+  let mut fuel = fuel_for_mass(mass);
+  let mut extra_fuel = fuel_for_mass(fuel);
+  while extra_fuel > 0 {
+    fuel = fuel + extra_fuel;
+    extra_fuel = fuel_for_mass(extra_fuel);
+  }
+
+  return fuel;
+}
+
+fn fuel_for_mass(mass: i32) -> i32 {
   // to find fuel required, take its mass, divide by three, round down, and subtract 2.
   return mass / 3 - 2;
 }
@@ -118,9 +133,16 @@ fn data()-> [i32; 100] {
 }
 
 #[test]
-fn test_fuel_required() {
-  assert_eq!(fuel_required(12), 2);
-  assert_eq!(fuel_required(14), 2);
-  assert_eq!(fuel_required(1969), 654);
-  assert_eq!(fuel_required(100756), 33583);
+fn test_fuel_for_mass() {
+  assert_eq!(fuel_for_mass(12), 2);
+  assert_eq!(fuel_for_mass(14), 2);
+  assert_eq!(fuel_for_mass(1969), 654);
+  assert_eq!(fuel_for_mass(100756), 33583);
+}
+
+#[test]
+fn test_fuel_for_mass_plus_fuel() {
+  // total fuel required for a module of mass 1969 is 654 + 216 + 70 + 21 + 5 = 966
+  assert_eq!(fuel_for_mass_plus_fuel(1969), 966);
+  assert_eq!(fuel_for_mass_plus_fuel(100756), 50346);
 }
