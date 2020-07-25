@@ -15,4 +15,4 @@ end
 tests.each do |t|
   res = calculate(t[:in])
   puts "#{t[:in]} => #{res} => #{res == t[:out]}"
-end
+end; nil
