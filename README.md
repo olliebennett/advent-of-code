@@ -2,18 +2,11 @@
 
 https://adventofcode.com/
 
-## Running Solutions
+Each year, help save Christmas, but using a different programming language!
 
-### Rust (`.rs`)
+- [2019 - Rust](/2019)
 
-Test with;
+- 2018 - nothing yet!
 
-```
-rustc --test day1.rs; ./day1
-```
+- [2017 - Ruby](/2017)
 
-and calculate solution with;
-
-```
-rustc day1.rs; ./day1
-```
