@@ -25,6 +25,8 @@ main = do
 
   let pairs = combinations 2 puzzleList
 
+  putStrLn "-- Part 1"
+
   putStrLn "matching pair:"
   let matches = filter sumTo2020 pairs
   let pair = matches !! 0
@@ -33,3 +35,13 @@ main = do
   putStrLn "product of matching pair:"
   print $ product pair
 
+  putStrLn "-- Part 2"
+
+  let triplets = combinations 3 puzzleList
+  putStrLn "matching triplets:"
+  let matches = filter sumTo2020 triplets
+  let triplet = matches !! 0
+  print triplet
+
+  putStrLn "product of matching triplet:"
+  print $ product triplet
