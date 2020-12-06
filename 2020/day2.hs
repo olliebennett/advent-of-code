@@ -49,9 +49,10 @@ parseLine line = do
              , letter = char
              , password = passwordString }
 
--- Determine whether a line specifies a valid password (based on included character frequency rule)
-validPassword :: String -> Bool
-validPassword line = do
+-- Determine (using old rules) whether a line specifies a valid password
+-- (i.e. if freq of occurences is within defined range)
+validPasswordOld :: String -> Bool
+validPasswordOld line = do
   let lineData = parseLine line
 
   let charCountMin = rangeStart lineData
@@ -65,15 +66,47 @@ validPassword line = do
   -- Check the count is within permitted range
   (numMatches >= charCountMin) && (numMatches <= charCountMax)
 
+-- Determine (using new rules) whether a line specifies a valid password
+-- (i.e. if xth and yth character match)
+validPasswordNew :: String -> Bool
+validPasswordNew line = do
+  let lineData = parseLine line
+
+  -- Define char positions, compensating for zero-based indices
+  let idx1 = rangeStart lineData - 1
+  let idx2 = rangeEnd lineData - 1
+
+  let char = letter lineData
+  let pwd = password lineData
+
+  let idx1Match = (pwd !! idx1) == char
+  let idx2Match = (pwd !! idx2) == char
+
+  -- Check _exactly one_ of the positions contain char
+  -- `/=` is XOR operator
+  idx1Match /= idx2Match
+
 main = do
   putStrLn "AoC 2020 - Day 2"
 
-  putStrLn "-- Tests"
-  let test1 = "1-3 a: abcde"
-  putStrLn $ "Test 1 (expect True): '" ++ test1 ++ "' => validPassword: " ++ show (validPassword test1)
-  let test2 = "1-3 b: cdefg"
-  putStrLn $ "Test 2 (expect False): '" ++ test2 ++ "' => validPassword: " ++ show (validPassword test2)
+  let testA = "1-3 a: abcde"
+  let testB = "1-3 b: cdefg"
+  let testC = "2-9 c: ccccccccc"
 
-  putStrLn "-- Part 1"
-  let badPasswordCount = length (filter validPassword input)
+  putStrLn "-- Part 1 Tests"
+  putStrLn $ "Test 1A (expect True): '" ++ testA ++ "' => " ++ show (validPasswordOld testA)
+  putStrLn $ "Test 1B (expect False): '" ++ testB ++ "' => " ++ show (validPasswordOld testB)
+  putStrLn $ "Test 1C (expect True): '" ++ testC ++ "' => " ++ show (validPasswordOld testC)
+
+  putStrLn "-- Part 1 Solution"
+  let badPasswordCount = length (filter validPasswordOld input)
+  putStrLn $ "Bad password count: " ++ show badPasswordCount
+
+  putStrLn "-- Part 2 Tests"
+  putStrLn $ "Test 2A (expect True): '" ++ testA ++ "' => " ++ show (validPasswordNew testA)
+  putStrLn $ "Test 2B (expect False): '" ++ testB ++ "' => " ++ show (validPasswordNew testB)
+  putStrLn $ "Test 2C (expect False): '" ++ testC ++ "' => " ++ show (validPasswordNew testC)
+
+  putStrLn "-- Part 2 Solution"
+  let badPasswordCount = length (filter validPasswordNew input)
   putStrLn $ "Bad password count: " ++ show badPasswordCount
