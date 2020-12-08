@@ -43,5 +43,12 @@ main = do
   putStrLn $ "Test: FFFBBBFRRR => Seat ID [119] " ++ show (seatId "FFFBBBFRRR")
   putStrLn $ "Test: BBFFBBFRLL => Seat ID [820] " ++ show (seatId "BBFFBBFRLL")
 
+  putStrLn "-- Part 1 Solution"
   let seat_ids = map seatId input
   putStrLn $ "Max Seat ID: " ++ show (maximum seat_ids)
+
+  putStrLn "-- Part 2 Solution"
+  putStrLn $ "Sorted Seat IDs: " ++ show (sort seat_ids)
+  -- For this output, resize terminal window to 10 IDs wide
+  -- an quickly skim for where the numbering changes.
+  -- 717 is missing.
