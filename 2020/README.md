@@ -17,7 +17,7 @@ brew install ghc
 Compile then run the solution
 
 ```bash
-ghc -o day1 day1.hs && ./day1
+ghc day1.hs && ./day1
 ```
 
 ## Resources
