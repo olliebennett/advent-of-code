@@ -39,10 +39,10 @@ main = do
   putStrLn "AoC 2020 - Day 5"
 
   putStrLn "-- Part 1 Tests"
-  putStrLn $ "Test: FBFBBFFRLR => Seat ID [357] " ++ show (seatId "FBFBBFFRLR")
-  putStrLn $ "Test: BFFFBBFRRR => Seat ID [567] " ++ show (seatId "BFFFBBFRRR")
-  putStrLn $ "Test: FFFBBBFRRR => Seat ID [119] " ++ show (seatId "FFFBBBFRRR")
-  putStrLn $ "Test: BBFFBBFRLL => Seat ID [820] " ++ show (seatId "BBFFBBFRLL")
+  test "FBFBBFFRLR" 357 (seatId "FBFBBFFRLR")
+  test "BFFFBBFRRR" 567 (seatId "BFFFBBFRRR")
+  test "FFFBBBFRRR" 119 (seatId "FFFBBBFRRR")
+  test "BBFFBBFRLL" 820 (seatId "BBFFBBFRLL")
 
   putStrLn "-- Part 1 Solution"
   let seat_ids = map seatId input

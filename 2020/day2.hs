@@ -95,18 +95,18 @@ main = do
   let testC = "2-9 c: ccccccccc"
 
   putStrLn "-- Part 1 Tests"
-  putStrLn $ "Test 1A (expect True): '" ++ testA ++ "' => " ++ show (validPasswordOld testA)
-  putStrLn $ "Test 1B (expect False): '" ++ testB ++ "' => " ++ show (validPasswordOld testB)
-  putStrLn $ "Test 1C (expect True): '" ++ testC ++ "' => " ++ show (validPasswordOld testC)
+  test testA True (validPasswordOld testA)
+  test testB False (validPasswordOld testB)
+  test testC True (validPasswordOld testC)
 
   putStrLn "-- Part 1 Solution"
   let badPasswordCount = length (filter validPasswordOld input)
   putStrLn $ "Bad password count: " ++ show badPasswordCount
 
   putStrLn "-- Part 2 Tests"
-  putStrLn $ "Test 2A (expect True): '" ++ testA ++ "' => " ++ show (validPasswordNew testA)
-  putStrLn $ "Test 2B (expect False): '" ++ testB ++ "' => " ++ show (validPasswordNew testB)
-  putStrLn $ "Test 2C (expect False): '" ++ testC ++ "' => " ++ show (validPasswordNew testC)
+  test testA True (validPasswordNew testA)
+  test testB False (validPasswordNew testB)
+  test testC False (validPasswordNew testC)
 
   putStrLn "-- Part 2 Solution"
   let badPasswordCount = length (filter validPasswordNew input)

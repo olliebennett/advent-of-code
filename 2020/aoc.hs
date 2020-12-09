@@ -38,3 +38,12 @@ splitStr sub str = split' sub str [] []
 str2int :: String -> Int
 str2int str = do
   read str :: Int
+
+test :: Eq a => Show a => String -> a -> a -> IO ()
+test title expected actual = do
+  if expected == actual
+    then do
+      putStrLn $ "Test: PASS " ++ title ++ " => got '" ++ show actual ++ "'"
+    else do
+      putStrLn $ "Test: FAIL " ++ title ++ " => got '" ++ show actual ++ "', expected '" ++ show expected ++ "'"
+
