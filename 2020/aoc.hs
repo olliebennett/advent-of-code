@@ -1,7 +1,8 @@
 module AoC where
 
-import Data.List
-import System.IO.Unsafe
+import Data.Char (isSpace)
+import Data.List (dropWhile, dropWhileEnd, isPrefixOf)
+import System.IO.Unsafe (unsafePerformIO)
 
 -- Read day's input file contents to string
 -- Note: clearly not 'safe' and not recommended!
@@ -12,6 +13,10 @@ read_day_input_raw :: Int -> String
 read_day_input_raw day_num = do
   let filename = "day" ++ show day_num ++ ".input.txt"
   unsafePerformIO . readFile $ filename
+
+read_day_input_trimmed :: Int -> String
+read_day_input_trimmed day_num = do
+  trim (read_day_input_raw day_num)
 
 read_day_input_lines :: Int -> [String]
 read_day_input_lines day_num = do
@@ -24,6 +29,17 @@ read_day_input_lines day_num = do
     take (length lines - 1) lines
   else do
     lines
+
+-- String trimming helpers
+-- Source: http://rosettacode.org/wiki/Strip_whitespace_from_a_string/Top_and_tail#Haskell
+trimLeft :: String -> String
+trimLeft = dropWhile isSpace
+
+trimRight :: String -> String
+trimRight = dropWhileEnd isSpace
+
+trim :: String -> String
+trim = trimLeft . trimRight
 
 -- Split a string on given sub-string
 -- Source: https://gist.github.com/kevinadi/da8fbd30b3e03300ce56
