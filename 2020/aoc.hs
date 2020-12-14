@@ -1,7 +1,7 @@
 module AoC where
 
 import Data.Char (isSpace)
-import Data.List (dropWhile, dropWhileEnd, isPrefixOf)
+import Data.List (dropWhile, dropWhileEnd, isPrefixOf, lines)
 import System.IO.Unsafe (unsafePerformIO)
 
 -- Read day's input file contents to string
@@ -22,13 +22,13 @@ read_day_input_lines :: Int -> [String]
 read_day_input_lines day_num = do
   let raw_input = read_day_input_raw day_num
   -- Split by newlines ...
-  let lines = splitStr "\n" raw_input
+  let line_list = lines raw_input
   -- ... and remove trailing blank line if any
-  if last lines == ""
+  if last line_list == ""
   then do
-    take (length lines - 1) lines
+    take (length line_list - 1) line_list
   else do
-    lines
+    line_list
 
 -- String trimming helpers
 -- Source: http://rosettacode.org/wiki/Strip_whitespace_from_a_string/Top_and_tail#Haskell
