@@ -74,6 +74,19 @@ count_shiny_golds :: [BagRule] -> Int
 count_shiny_golds bag_rules = do
   length (filter (contains_shiny_gold bag_rules) bag_rules)
 
+nesting_count_single :: [BagRule] -> BagCount -> Int
+nesting_count_single all_bag_rules bag_count = do
+  let cnt = count bag_count
+  let bag_col = bag_colour bag_count
+  let bag_rule = colour_2_bag_rule all_bag_rules bag_col
+  let bags = sub_bags bag_rule
+  -- Count child bags, plus (count * number of each of their children)
+  cnt + cnt * (nesting_count all_bag_rules bags)
+
+nesting_count :: [BagRule] -> [BagCount] -> Int
+nesting_count all_bag_rules bag_counts = do
+  sum (map (nesting_count_single all_bag_rules) bag_counts)
+
 main = do
   putStrLn "AoC 2020 - Day 7"
 
@@ -111,3 +124,23 @@ main = do
 
   let bag_rules = parse_bag_rules input
   putStrLn $ "Total bag colours (eventually) containing shiny gold: " ++ show (count_shiny_golds bag_rules)
+
+  putStrLn "-- Part 2 Tests"
+
+  let faded_blue_rule = colour_2_bag_rule test_bag_rules "faded blue"
+  test "faded blue nesting count" 0 (nesting_count test_bag_rules (sub_bags faded_blue_rule))
+
+  let vibrant_plum_rule = colour_2_bag_rule test_bag_rules "vibrant plum"
+  test "vibrant plum nesting count" 11 (nesting_count test_bag_rules (sub_bags vibrant_plum_rule))
+
+  let dark_olive_rule = colour_2_bag_rule test_bag_rules "dark olive"
+  test "dark olive nesting count" 7 (nesting_count test_bag_rules (sub_bags dark_olive_rule))
+
+  let test_shiny_gold_rule = colour_2_bag_rule test_bag_rules shiny_gold
+  test "shiny gold nesting count" 32 (nesting_count test_bag_rules (sub_bags test_shiny_gold_rule))
+
+  putStrLn "-- Part 2 Solution"
+
+  let shiny_gold_rule = colour_2_bag_rule bag_rules shiny_gold
+  let shiny_gold_nesting_count = nesting_count bag_rules (sub_bags shiny_gold_rule)
+  putStrLn $ "Shiny gold nesting count: " ++ show shiny_gold_nesting_count
