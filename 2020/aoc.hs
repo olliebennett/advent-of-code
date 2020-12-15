@@ -30,6 +30,12 @@ read_day_input_lines day_num = do
   else do
     line_list
 
+-- Hack(?) to remove 'Maybe' from a result
+-- Source: https://www.youtube.com/watch?v=yhKJoFS6EKQ
+removeMaybe :: Maybe Int -> [Int]
+removeMaybe Nothing = []
+removeMaybe (Just i) = [i]
+
 -- String trimming helpers
 -- Source: http://rosettacode.org/wiki/Strip_whitespace_from_a_string/Top_and_tail#Haskell
 trimLeft :: String -> String
