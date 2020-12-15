@@ -18,15 +18,15 @@ next_number current_numbers = do
     let numbers_count = length current_numbers
     numbers_count - last_index - 1
 
-number_2020 :: [Int] -> Int
-number_2020 current_numbers = do
-  if (length current_numbers) == 2020
+nth_number :: [Int] -> Int -> Int
+nth_number current_numbers n = do
+  if (length current_numbers) == n
   then do
-    last current_numbers -- return 2020th element!
+    last current_numbers -- return nth element!
   else do
     -- NOTE: Adding an item to the end of a list is ... expensive, and indicates you are building your list in the wrong order. There is usually a better approach.
     -- Source: https://stackoverflow.com/q/42798257/1323144
-    number_2020 (current_numbers ++ [(next_number current_numbers)])
+    nth_number (current_numbers ++ [(next_number current_numbers)]) n
 
 main = do
   putStrLn "AoC 2020 - Day 15"
@@ -41,8 +41,12 @@ main = do
   test "Turn  9" 4 (next_number [0, 3, 6, 0, 3, 3, 1, 0])
   test "Turn 10" 0 (next_number [0, 3, 6, 0, 3, 3, 1, 0, 4])
 
-  test "Turn 2020" 436 (number_2020 [0, 3, 6])
+  test "Turn 2020" 436 (nth_number [0, 3, 6] 2020)
 
   putStrLn "-- Part 1 Solution"
 
-  putStrLn $ "2020th number: " ++ show (number_2020 input)
+  putStrLn $ "2020th number: " ++ show (nth_number input 2020)
+
+  putStrLn "-- Part 2 Tests"
+
+  test "Turn 30,000,000" 175594 (nth_number [0, 3, 6] 10000)
