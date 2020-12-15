@@ -13,9 +13,9 @@ next_number current_numbers = do
   if isNothing last_index
   then 0 -- number never previously seen; set 0
   else do
-    -- previous number last seen at `last_index`;
-    let just_last_index = ((removeMaybe last_index) !! 0) + 1
-    just_last_index
+    -- `last_index` is the index of last occurrence of the previous number;
+    -- Add 1 to negate 0-based indexing
+    (head (removeMaybe last_index)) + 1
 
 nth_number :: [Int] -> Int -> Int
 nth_number current_numbers n = do
