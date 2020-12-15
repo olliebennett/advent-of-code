@@ -20,6 +20,14 @@ Compile then run the solution
 ghc day1.hs && ./day1
 ```
 
+To debug performance issues, include profiling info with
+
+```bash
+ghc day1.hs -prof -fprof-auto && ./day1 +RTS -p
+```
+
+which creates an associated `day1.prof` file.
+
 ## Resources
 
 - [Simple Haskell Examples](https://www.schoolofhaskell.com/school/to-infinity-and-beyond/pick-of-the-week/Simple%20examples)
