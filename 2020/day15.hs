@@ -9,7 +9,7 @@ next_number current_numbers = do
   let prev_number = head current_numbers -- first element
   let historical_numbers = tail current_numbers -- remaining elements
   -- Find most recent (first) occurrence of prev number in historical list
-  let last_index = findIndex (== prev_number) historical_numbers
+  let last_index = elemIndex prev_number historical_numbers
   if isNothing last_index
   then 0 -- number never previously seen; set 0
   else do
