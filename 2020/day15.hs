@@ -17,15 +17,17 @@ next_number current_numbers = do
     -- Add 1 to negate 0-based indexing
     (head (removeMaybe last_index)) + 1
 
-nth_number :: [Int] -> Int -> Int
-nth_number current_numbers n = do
-  if (length current_numbers) == n
+nth_number :: [Int] -> Int -> Int -> Int
+nth_number current_numbers n list_len = do
+  if list_len == n
   then do
     head current_numbers -- we have the nth element (first in list)!
   else do
     let next_n = next_number current_numbers
+    -- Prepend next_n to (the front of) current_members
     let new_list = next_n : current_numbers
-    nth_number new_list n
+    -- Also pass through the (new) length for performance
+    nth_number new_list n (list_len + 1)
 
 main = do
   putStrLn "AoC 2020 - Day 15"
@@ -40,12 +42,12 @@ main = do
   test "Turn  9" 4 (next_number (reverse [0, 3, 6, 0, 3, 3, 1, 0]))
   test "Turn 10" 0 (next_number (reverse [0, 3, 6, 0, 3, 3, 1, 0, 4]))
 
-  test "Turn 2020" 436 (nth_number (reverse [0, 3, 6]) 2020)
+  test "Turn 2020" 436 (nth_number (reverse [0, 3, 6]) 2020 3)
 
   putStrLn "-- Part 1 Solution"
 
-  putStrLn $ "2020th number: " ++ show (nth_number (reverse input) 2020)
+  putStrLn $ "2020th number: " ++ show (nth_number (reverse input) 2020 (length input))
 
   putStrLn "-- Part 2 Tests"
 
-  test "Turn 30,000,000" 175594 (nth_number (reverse [0, 3, 6]) 50000)
+  test "Turn 30,000,000" 175594 (nth_number (reverse input) 50000 (length input))
