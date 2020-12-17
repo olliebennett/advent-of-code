@@ -20,6 +20,8 @@ Compile then run the solution
 ghc day1.hs && ./day1
 ```
 
+## Debugging and Linting
+
 To debug performance issues, include profiling info with
 
 ```bash
@@ -27,6 +29,15 @@ ghc day1.hs -prof -fprof-auto && ./day1 +RTS -p
 ```
 
 which creates an associated `day1.prof` file.
+
+To lint a file using [Hlint](https://github.com/ndmitchell/hlint),
+
+```
+brew install cabal-install
+cabal update
+cabal install hlint
+~/.cabal/bin/hlint day1.hs
+```
 
 ## Resources
 
