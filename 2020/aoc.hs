@@ -3,6 +3,7 @@ module AoC where
 import Data.Char (isSpace)
 import Data.List (dropWhile, dropWhileEnd, isPrefixOf, lines)
 import System.IO.Unsafe (unsafePerformIO)
+import Text.Printf (printf)
 
 -- Read day's input file contents to string
 -- Note: clearly not 'safe' and not recommended!
@@ -11,7 +12,7 @@ import System.IO.Unsafe (unsafePerformIO)
 -- See: https://stackoverflow.com/a/17265286/1323144
 readDayInputRaw :: Int -> String
 readDayInputRaw day_num = do
-  let filename = "day" ++ show day_num ++ ".input.txt"
+  let filename = "day" ++ printf "%02d" day_num ++ ".input.txt"
   unsafePerformIO . readFile $ filename
 
 readDayInputTrimmed :: Int -> String
