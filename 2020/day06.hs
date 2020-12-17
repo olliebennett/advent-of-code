@@ -2,7 +2,7 @@ import AoC
 import Data.List
 
 -- Blank lines in the input delimit response groups
-input = splitStr "\n\n" (read_day_input_trimmed 6)
+input = splitStr "\n\n" (readDayInputTrimmed 6)
 
 test_input = ["abc", "a\nb\nc", "ab\nac", "a\na\na\na", "b"]
 

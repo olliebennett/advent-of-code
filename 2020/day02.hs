@@ -1,7 +1,7 @@
 import AoC
 import Data.List
 
-input = read_day_input_lines 2
+input = readDayInputLines 2
 
 -- Use 'record syntax' to represent each line of input file
 -- See: https://haskell.programmingpedia.net/en/tutorial/1950/record-syntax

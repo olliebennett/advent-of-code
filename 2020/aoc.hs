@@ -9,18 +9,18 @@ import System.IO.Unsafe (unsafePerformIO)
 -- However, this allows subsequent handling of normal
 -- `String`s instead of `IO String`s.
 -- See: https://stackoverflow.com/a/17265286/1323144
-read_day_input_raw :: Int -> String
-read_day_input_raw day_num = do
+readDayInputRaw :: Int -> String
+readDayInputRaw day_num = do
   let filename = "day" ++ show day_num ++ ".input.txt"
   unsafePerformIO . readFile $ filename
 
-read_day_input_trimmed :: Int -> String
-read_day_input_trimmed day_num = do
-  trim (read_day_input_raw day_num)
+readDayInputTrimmed :: Int -> String
+readDayInputTrimmed day_num = do
+  trim (readDayInputRaw day_num)
 
-read_day_input_lines :: Int -> [String]
-read_day_input_lines day_num = do
-  let raw_input = read_day_input_raw day_num
+readDayInputLines :: Int -> [String]
+readDayInputLines day_num = do
+  let raw_input = readDayInputRaw day_num
   -- Split by newlines ...
   let line_list = lines raw_input
   -- ... and remove trailing blank line if any

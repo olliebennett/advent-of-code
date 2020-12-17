@@ -4,7 +4,7 @@ import Data.Map (Map)
 import qualified Data.Map as Map (empty, fromList, insert, lookup)
 import Data.Maybe (isNothing)
 
-input = map str2int (splitStr "," (read_day_input_trimmed 15))
+input = map str2int (splitStr "," (readDayInputTrimmed 15))
 
 nextVal :: Int -> Int -> Map Int Int -> Int
 nextVal current_turn latest_val history = do

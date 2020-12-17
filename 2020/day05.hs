@@ -1,7 +1,7 @@
 import AoC
 import Data.List
 
-input = read_day_input_lines 5
+input = readDayInputLines 5
 
 filterTupleBySecond :: Char -> (Int, Char) -> Bool
 filterTupleBySecond char tup = snd tup == char

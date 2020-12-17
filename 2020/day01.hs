@@ -4,7 +4,7 @@
 import AoC
 import Data.List
 
-input = map str2int (read_day_input_lines 1)
+input = map str2int (readDayInputLines 1)
 
 -- Extract all combinations of n elements from a list
 -- https://stackoverflow.com/a/8626006/1323144

@@ -4,7 +4,7 @@ import Data.List
 -- Test input:
 -- input = ["..##.......", "#...#...#..", ".#....#..#.", "..#.#...#.#", ".#...##..#.", "..#.##.....", ".#.#.#....#", ".#........#", "#.##...#...", "#...##....#", ".#..#...#.#"]
 
-input = read_day_input_lines 3
+input = readDayInputLines 3
 
 colsCount :: Int
 colsCount = length (head input)
