@@ -1,53 +1,84 @@
 import AoC
 import Data.List
+import Data.Map (Map)
+import qualified Data.Map as Map (fromList, insert, lookup)
 import Data.Maybe (isNothing)
 
 input = map str2int (splitStr "," (read_day_input_trimmed 15))
 
-next_number :: [Int] -> Int
-next_number current_numbers = do
-  let prev_number = head current_numbers -- first element
-  let historical_numbers = tail current_numbers -- remaining elements
-  -- Find most recent (first) occurrence of prev number in historical list
-  let last_index = elemIndex prev_number historical_numbers
-  if isNothing last_index
+nextVal :: Int -> Int -> Map Int Int -> Int
+nextVal current_turn latest_val history = do
+  -- Extract the last time this value was seen
+  let previous_occurrence_maybe = Map.lookup latest_val history
+  if isNothing previous_occurrence_maybe
   then 0 -- number never previously seen; set 0
   else do
-    -- `last_index` is the index of last occurrence of the previous number;
-    -- Add 1 to negate 0-based indexing
-    (head (removeMaybe last_index)) + 1
+    -- Hack to remove `Maybe` as we've already checked with isNothing
+    let previous_occurrence = head (removeMaybe previous_occurrence_maybe)
+    current_turn - previous_occurrence - 1
 
-nth_number :: [Int] -> Int -> Int -> Int
-nth_number current_numbers n list_len = do
-  if list_len == n
+nthNumber :: Int -> Int -> Int -> Map Int Int -> Int
+nthNumber target_turn num_completed_turns latest_val history = do
+  let current_val = nextVal (num_completed_turns + 1) latest_val history
+  let next_turn = num_completed_turns + 1
+  if next_turn == target_turn
   then do
-    head current_numbers -- we have the nth element (first in list)!
+    -- we've reached the required N; return the value!
+    current_val
   else do
-    let next_n = next_number current_numbers
-    -- Prepend next_n to (the front of) current_members
-    let new_list = next_n : current_numbers
-    -- Also pass through the (new) length for performance
-    nth_number new_list n (list_len + 1)
+    -- Insert (or replace) the current turn's data into the map of historical occurrences
+    let updated_history = Map.insert latest_val num_completed_turns history
+    -- And iterate recursively for the next turn
+    nthNumber target_turn next_turn current_val updated_history
 
 main = do
   putStrLn "AoC 2020 - Day 15"
 
   putStrLn "-- Part 1 Tests"
 
-  test "Turn  4" 0 (next_number (reverse [0, 3, 6]))
-  test "Turn  5" 3 (next_number (reverse [0, 3, 6, 0]))
-  test "Turn  6" 3 (next_number (reverse [0, 3, 6, 0, 3]))
-  test "Turn  7" 1 (next_number (reverse [0, 3, 6, 0, 3, 3]))
-  test "Turn  8" 0 (next_number (reverse [0, 3, 6, 0, 3, 3, 1]))
-  test "Turn  9" 4 (next_number (reverse [0, 3, 6, 0, 3, 3, 1, 0]))
-  test "Turn 10" 0 (next_number (reverse [0, 3, 6, 0, 3, 3, 1, 0, 4]))
+  -- Manually build history from test results
+  let test_history0 = Map.fromList []
+  let test_history1 = Map.insert 0 1 test_history0
+  let test_history2 = Map.insert 3 2 test_history1
+  let test_history3 = Map.insert 6 3 test_history2
+  let test_history4 = Map.insert 0 4 test_history3
+  let test_history5 = Map.insert 3 5 test_history4
+  let test_history6 = Map.insert 3 6 test_history5
+  let test_history7 = Map.insert 1 7 test_history6
+  let test_history8 = Map.insert 0 8 test_history7
+  let test_history9 = Map.insert 4 9 test_history8
 
-  test "Turn 2020" 436 (nth_number (reverse [0, 3, 6]) 2020 3)
+  putStrLn "Tests: Next only (single iteration)"
+  test "Turn (next)  4" 0 (nextVal  4 6 test_history2)
+  test "Turn (next)  5" 3 (nextVal  5 0 test_history3)
+  test "Turn (next)  6" 3 (nextVal  6 3 test_history4)
+  test "Turn (next)  7" 1 (nextVal  7 3 test_history5)
+  test "Turn (next)  8" 0 (nextVal  8 1 test_history6)
+  test "Turn (next)  9" 4 (nextVal  9 0 test_history7)
+  test "Turn (next) 10" 0 (nextVal 10 4 test_history8)
+  putStrLn "Tests: Full (recursive iteration)"
+  test "Turn (full)  4" 0 (nthNumber  4 3 6 test_history2)
+  test "Turn (full)  5" 3 (nthNumber  5 3 6 test_history2)
+  test "Turn (full)  6" 3 (nthNumber  6 3 6 test_history2)
+  test "Turn (full)  7" 1 (nthNumber  7 3 6 test_history2)
+  test "Turn (full)  8" 0 (nthNumber  8 3 6 test_history2)
+  test "Turn (full)  9" 4 (nthNumber  9 3 6 test_history2)
+  test "Turn (full) 10" 0 (nthNumber 10 3 6 test_history2)
 
   putStrLn "-- Part 1 Solution"
 
-  putStrLn $ "2020th number: " ++ show (nth_number (reverse input) 2020 (length input))
+  -- Manually build history for input data
+  let history0 = Map.fromList []
+  let history1 = Map.insert 0 1 history0
+  let history2 = Map.insert 3 2 history1
+  let history3 = Map.insert 1 3 history2
+  let history4 = Map.insert 6 4 history3
+  let history5 = Map.insert 7 5 history4
 
-  putStrLn "-- Part 2 Tests"
+  putStrLn $ "Turn 2020: " ++ show (nthNumber 2020 6 5 history5)
 
-  test "Turn 30,000,000" 175594 (nth_number (reverse input) 50000 (length input))
+  putStrLn "-- Part 2 Test"
+  putStrLn $ "Turn 1M (warm up): " ++ show (nthNumber 1000000 6 5 history5)
+
+  putStrLn "-- Part 2 Solution"
+  -- putStrLn $ "Turn 30M: " ++ show (nthNumber 30000000 6 5 history5)
