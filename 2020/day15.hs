@@ -78,7 +78,7 @@ main = do
   putStrLn $ "Turn 2020: " ++ show (nthNumber 2020 6 5 history5)
 
   putStrLn "-- Part 2 Test"
-  putStrLn $ "Turn 1M (warm up): " ++ show (nthNumber 1000000 6 5 history5)
+  putStrLn $ "Turn 1M (warm up): " ++ show (nthNumber 100000 6 5 history5)
 
   putStrLn "-- Part 2 Solution"
-  -- putStrLn $ "Turn 30M: " ++ show (nthNumber 30000000 6 5 history5)
+  putStrLn $ "Turn 30M: " ++ show (nthNumber 30000000 6 5 history5)
