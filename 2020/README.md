@@ -17,7 +17,7 @@ brew install ghc
 Compile then run the solution
 
 ```bash
-ghc day1.hs && ./day1
+ghc day01.hs && ./day01
 ```
 
 ## Debugging and Linting
@@ -25,7 +25,7 @@ ghc day1.hs && ./day1
 To debug performance issues, include profiling info with
 
 ```bash
-ghc day1.hs -prof -fprof-auto && ./day1 +RTS -p
+ghc day01.hs -prof -fprof-auto && ./day01 +RTS -p
 ```
 
 which creates an associated `day1.prof` file.
