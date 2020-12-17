@@ -19,20 +19,19 @@ combinations n lst = do
 -- Return True if the input list sums to 2020.
 sumTo2020 i = sum i == 2020
 
-
 main = do
   putStrLn "AoC 2020 - Day 1"
 
   putStrLn "-- Part 1"
   let pairs = combinations 2 input
   let matches = filter sumTo2020 pairs
-  let pair = matches !! 0
+  let pair = head matches
   putStrLn $ "Matching pair " ++ show pair ++ " sums to 2020"
   putStrLn $ "Product of matching pair: " ++ show (product pair)
 
   putStrLn "-- Part 2"
   let triplets = combinations 3 input
   let matches = filter sumTo2020 triplets
-  let triplet = matches !! 0
+  let triplet = head matches
   putStrLn $ "Matching triplet " ++ show triplet ++ " sums to 2020"
   putStrLn $ "Product of matching triplet: " ++ show (product triplet)

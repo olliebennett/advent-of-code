@@ -4,7 +4,7 @@ import Data.List
 input = read_day_input_lines 5
 
 filterTupleBySecond :: Char -> (Int, Char) -> Bool
-filterTupleBySecond char tup = (snd tup) == char
+filterTupleBySecond char tup = snd tup == char
 
 seatRow :: String -> Int
 seatRow row_str = do
@@ -33,7 +33,7 @@ seatId str = do
   let row_str = take 7 str -- first 7 chars
   let col_str = drop 7 str -- last 3 chars
 
-  (seatRow row_str) * 8 + (seatCol col_str)
+  seatRow row_str * 8 + seatCol col_str
 
 main = do
   putStrLn "AoC 2020 - Day 5"

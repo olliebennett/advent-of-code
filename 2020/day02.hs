@@ -37,11 +37,11 @@ parseLine line = do
   -- Split and parse the line into variables;
   -- Note: We can't use Regex (`Text.Regex`) as not part of standard library!
   let chunks = splitOnSpace line
-  let charCountRange = splitOnDash (chunks !! 0)
-  let charCountMin = read (charCountRange !! 0) :: Int
+  let charCountRange = splitOnDash (head chunks)
+  let charCountMin = read (head charCountRange) :: Int
   let charCountMax = read (charCountRange !! 1) :: Int
   let charString = stripChars ":" (chunks !! 1)
-  let char = charString !! 0
+  let char = head charString
   let passwordString = chunks !! 2
 
   -- Return a ParsedLine record with the parsed data

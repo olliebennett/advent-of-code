@@ -68,4 +68,3 @@ test title expected actual = do
       putStrLn $ "Test: PASS " ++ title ++ " => got " ++ show actual
     else do
       putStrLn $ "Test: FAIL " ++ title ++ " => got " ++ show actual ++ ", expected " ++ show expected
-
