@@ -1,7 +1,7 @@
 import AoC
 import Data.List
 import Data.Map (Map)
-import qualified Data.Map as Map (fromList, insert, lookup)
+import qualified Data.Map as Map (empty, fromList, insert, lookup)
 import Data.Maybe (isNothing)
 
 input = map str2int (splitStr "," (read_day_input_trimmed 15))
@@ -37,7 +37,7 @@ main = do
   putStrLn "-- Part 1 Tests"
 
   -- Manually build history from test results
-  let test_history0 = Map.fromList []
+  let test_history0 = Map.empty
   let test_history1 = Map.insert 0 1 test_history0
   let test_history2 = Map.insert 3 2 test_history1
   let test_history3 = Map.insert 6 3 test_history2
@@ -68,7 +68,7 @@ main = do
   putStrLn "-- Part 1 Solution"
 
   -- Manually build history for input data
-  let history0 = Map.fromList []
+  let history0 = Map.empty
   let history1 = Map.insert 0 1 history0
   let history2 = Map.insert 3 2 history1
   let history3 = Map.insert 1 3 history2
