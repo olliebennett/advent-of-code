@@ -22,6 +22,8 @@ ghc day01.hs && ./day01
 
 ## Debugging and Linting
 
+To print a simple debug output (without complicating things with the IO monad!), use [Debug.Trace](https://hackage.haskell.org/package/base/docs/Debug-Trace.html)
+
 To debug performance issues, include profiling info with
 
 ```bash
@@ -29,6 +31,12 @@ ghc day01.hs -prof -fprof-auto && ./day01 +RTS -p
 ```
 
 which creates an associated `day1.prof` file.
+
+To print stack trace for an exception, use the `xc` flag:
+
+```bash
+ghc day01.hs -prof -fprof-auto && ./day01 +RTS -xc
+```
 
 To lint a file using [Hlint](https://github.com/ndmitchell/hlint),
 
