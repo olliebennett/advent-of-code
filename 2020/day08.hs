@@ -60,7 +60,7 @@ processInstructions index_to_flip idx instructions visited_indexes accumulator =
 
 parseInstruction :: String -> Instruction
 parseInstruction line = do
-  let x = splitStr " " line
+  let x = words line
   let val = x !! 1
   let num = str2int (tail val) -- tail omits first char
   if head val == '+' then

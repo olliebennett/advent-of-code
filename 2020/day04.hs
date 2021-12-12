@@ -118,7 +118,7 @@ validHcl :: String -> Bool
 validHcl str = do
   length str == 7
     && head str == '#'
-    && isHex (drop 1 str)
+    && isHex (tail str)
 
 -- Eye Color - exactly one of: amb blu brn gry grn hzl oth.
 validEcl :: String -> Bool
