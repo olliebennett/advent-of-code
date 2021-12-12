@@ -50,3 +50,10 @@ cabal install hlint
 ## Resources
 
 - [Simple Haskell Examples](https://www.schoolofhaskell.com/school/to-infinity-and-beyond/pick-of-the-week/Simple%20examples)
+
+### Other Solutions
+
+Useful for reference once I've found the solution in my own (often ugly) way!
+
+- [GitHub: Haskell AoC 2020 Projects](https://github.com/search?l=Haskell&o=desc&q=advent+of+code+2020&s=updated&type=Repositories)
+- [Ben Siraphob](https://github.com/siraben/haoc-2020)
